@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.wrapper{
+    background: lightblue url("https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-chinese-style-ppt-background-blue-bamboo-forest-cool-and-quiet-style-image_56849.jpg") no-repeat fixed center;
+    height: 800px;
+    width: 100%;
+}/* You can add global styles to this file, and also import other style files */
+
+
+.ml-25{
+    margin-left:25% !important;
+}

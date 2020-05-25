@@ -1,25 +1,34 @@
 <div class="wrapper container-fluid">
     <p>Guest User</p>
+    <p [routerLink]="['/question-answer']" routerLinkActive="router-link-active" >Question/Answer portal</p>
     <div >
-      <div class="text-center">
-        <h1 class="">Ask A Question</h1>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="name" placeholder="Enter name">
+      <form [formGroup]="queryForm" (submit)="onSubmit(queryForm.value)">
+        <div class="text-center">
+          <h1 class="">Ask A Question</h1>
+          <div class="row ml-25">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control" formControlName="name" id="exampleInputEmail1" aria-describedby="name" placeholder="Enter name">
+              </div>
+            </div>
+            <div class="col-sm-offset-3 col-sm-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email*</label>
+                <input type="text" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="name" placeholder="Enter email">
+              </div>
             </div>
           </div>
-          <div class="col-sm-6"></div>
-        </div>
-        <textarea class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
-        <div class="row">
-          <div class="col-sm-6">
-            <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- Submit</button>
-            <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
+          <h3>(Once question is answered notification can be sent on his email address with a link to audio file)</h3>
+          <textarea class="form-rounded p-5 w-75" formControlName="question" name="answer-portal" id="" placeholder="TYPE YOUR QUESTION HERE" cols="30" rows="10"></textarea>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Submit</button>
+              <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT Question -> </button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
       <div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { AudioRecordingService } from './../audio-recording.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
-
+declare let $: any;
 @Component({
   selector: 'app-question-answer-portal',
   templateUrl: './question-answer-portal.component.html',
@@ -44,6 +44,29 @@ export class QuestionAnswerPortalComponent implements OnInit {
       this.tempQuestions = this.utilityService.responsive(data);
       console.log(this.tempQuestions);
     });
+  }
+
+  ngAfterViewInit(){
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items : 3,
+        loop  : true,
+        margin : 30,
+        nav    : true,
+        smartSpeed :900,
+        navText:["<div class='nav-btn prev-slide'></div>","<div class='nav-btn        next-slide'></div>"],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+    })
   }
 
 

@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SubmitQuestionComponent } from './submit-question/submit-question.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SubmitQuestionComponent } from './submit-question/submit-question.compo
     NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [AudioRecordingService, AngularFirestore],
   bootstrap: [AppComponent]
