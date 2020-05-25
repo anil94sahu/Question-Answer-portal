@@ -1,0 +1,45 @@
+<!-- <div>
+    <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+    <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop Recording</button>
+    <button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="clearRecordedData()">Clear Recording</button>
+    <div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
+    <div>
+    <audio *ngIf="!isRecording && blobUrl"  controls>
+      <source [src]="blobUrl" type="audio/webm">
+    </audio>
+    </div>
+</div>
+
+<div class="container">
+  <table class="table table-hover bg bg-warning border" >
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Question</th>
+        <th scope="col">Recording</th>
+        <th scope="col">File</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of questions;let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.question}}</td>
+        <td>
+          <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item,i)">Start Recording</button>
+          <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item, i)">Stop Recording</button>
+          <div *ngIf="item.isRecording && !item.blobUrl"> {{item.recordedTime}} </div>
+        </td>
+        <td>
+          <div>
+            <audio *ngIf="!item.isRecording && item.blobUrl"  controls>
+              <source [src]="item.blobUrl" type="audio/webm">
+            </audio>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+<app-question-answer-portal></app-question-answer-portal>
