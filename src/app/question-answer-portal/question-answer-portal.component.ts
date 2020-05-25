@@ -1,3 +1,5 @@
+import { UtilityService } from './../shared/services/utility.service';
+import { CrudService } from './../crud.service';
 import { AudioRecordingService } from './../audio-recording.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,8 +21,10 @@ export class QuestionAnswerPortalComponent implements OnInit {
   recordedTime;
   blobUrl;
   itemNumber = 0;
+  tempQuestions = [];
 
-  constructor(private modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer) { 
+  constructor(private modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
+    private crudService: CrudService, private utilityService: UtilityService) {
     this.audioRecordingService.recordingFailed().subscribe(() => {
       this.questions[this.itemNumber].isRecording = false;
     });
@@ -35,12 +39,22 @@ export class QuestionAnswerPortalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.crudService.getAll('questions')
+    .subscribe((data) => {
+      this.tempQuestions = this.utilityService.responsive(data);
+      console.log(this.tempQuestions);
+    });
   }
 
 
 /* Modal popup */
 openSm(content) {
   this.modalService.open(content, { size: 'sm' });
+  this.isRecording = false;
+  this.recordedTime = undefined;
+  this.blobUrl = undefined;
+  this.itemNumber = 0;
+
 }
 
 

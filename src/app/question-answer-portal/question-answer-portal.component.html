@@ -1,9 +1,10 @@
 <div class="wrapper container-fluid">
   <p>Admin User</p>
-  <div>
+  <p class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active" >Submit question</p>
+  <div *ngFor="let item of tempQuestions; let i = index">
     <div class="text-center">
-      <h1 class="">Question No 108:</h1>
-      <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing el</p>
+      <h1 class="">Question No {{i+1}}:</h1>
+      <p class="">{{item.question}}</p>
       <textarea class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
       <div class="row">
         <div class="col-sm-6">
