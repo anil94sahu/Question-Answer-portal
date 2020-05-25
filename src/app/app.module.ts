@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SubmitQuestionComponent } from './submit-question/submit-question.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     BrowserModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    MDBBootstrapModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [AudioRecordingService, AngularFirestore],
   bootstrap: [AppComponent]
