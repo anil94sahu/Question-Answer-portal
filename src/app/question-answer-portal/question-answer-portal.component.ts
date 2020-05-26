@@ -1,3 +1,4 @@
+import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { UtilityService } from './../shared/services/utility.service';
 import { CrudService } from './../crud.service';
 import { AudioRecordingService } from './../audio-recording.service';
@@ -21,6 +22,7 @@ export class QuestionAnswerPortalComponent implements OnInit {
   blobUrl;
   itemNumber = 0;
   tempQuestions = [];
+  responseForm: FormGroup;
 
   constructor(private modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService) {
@@ -38,11 +40,46 @@ export class QuestionAnswerPortalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getQuestion();
+    this.responseForm = new FormGroup({questions: new FormArray([])});
+  }
+
+  getQuestion() {
     this.crudService.getAll('questions')
     .subscribe((data) => {
       this.tempQuestions = this.utilityService.responsive(data);
       console.log(this.tempQuestions);
+      this.tempQuestions.forEach((e, i) => {this.addItem(); this.setValue(e, i); });
     });
+  }
+
+  get questionsForm(){
+    return this.responseForm.get('questions');
+  }
+
+  addItem() {
+    const items = this.responseForm.get('questions') as FormArray;
+    items.push(this.initForm());
+  }
+
+  setValue(value, i) {
+      this.questionsForm['controls'][i].patchValue({
+        answer: value.answer ? value.answer : '',
+        id: value.id,
+        email: value.email,
+        question: value.question
+      });
+  }
+
+  initForm() {
+    const initForm =   {
+      id: new FormControl('', /*  Validators.compose([Validators.required]) */),
+      name: new FormControl(''),
+      email: new FormControl('', Validators.required),
+      question: new FormControl(''),
+      answer: new FormControl('')
+    };
+    return new FormGroup(initForm);
   }
 
 /* Modal popup */
@@ -56,6 +93,10 @@ openSm(content) {
 }
 
 
+submitAnswerByText(data) {
+  console.log(data);
+  this.crudService.update('questions', {answer: data.answer}, data.id);
+}
 
 /* Recroding sessio */
 startRecording(item, i) {

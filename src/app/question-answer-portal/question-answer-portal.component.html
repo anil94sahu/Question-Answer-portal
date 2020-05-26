@@ -1,38 +1,43 @@
 <div class="wrapper container-fluid">
   <p>Admin User</p>
   <a class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active" >Submit question</a>
-  <div *ngFor="let item of tempQuestions; let i = index">
-    <div class="text-center">
-      <h1 class="">Question No {{i+1}}:</h1>
-      <p class="">{{item.question}}</p>
-      <textarea class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
-      <div class="row">
-        <div class="col-sm-6">
-          <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
-          <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
-        </div>
-        <div class="col-sm-6">
-          <div class="container">
-            <p>
-              <a (click)="openSm(content)">
-                Record Answer
-              </a>
-              <!-- <i class="glyphicon glyphicon-record"></i> -->
-            </p>
-            <p>
-              <!-- <i class="fas fa-coffee"></i> -->
-              <a href="">
-                Attach a File
-              </a>  
-            </p>
+  <form [formGroup]="responseForm" (submit)="submitAnswerByText(responseForm.value)">
+    <div formArrayName="questions">
+      <div *ngFor="let item of tempQuestions; let i = index">
+        <div formGroupName="{{i}}" class="text-center">
+          <h1 class="">Question No {{i+1}}:</h1>
+          <p class="">{{item.question}}</p>
+          <textarea formControlName="answer" class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
+              <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
+              <button type="button" (click)="submitAnswerByText(responseForm.value.questions[i])" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
+            </div>
+            <div class="col-sm-6">
+              <div class="container">
+                <p>
+                  <a (click)="openSm(content)">
+                    Record Answer
+                  </a>
+                  <!-- <i class="glyphicon glyphicon-record"></i> -->
+                </p>
+                <p>
+                  <!-- <i class="fas fa-coffee"></i> -->
+                  <a href="">
+                    Attach a File
+                  </a>  
+                </p>
+              </div>
+            </div>
+      
           </div>
         </div>
-  
+        <div>
+        </div>
       </div>
     </div>
-    <div>
-    </div>
-  </div>
+  </form>
 </div>
 
 
