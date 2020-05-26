@@ -1,6 +1,6 @@
 <div class="wrapper container-fluid">
     <p>Guest User</p>
-    <p [routerLink]="['/question-answer']" routerLinkActive="router-link-active" >Question/Answer portal</p>
+    <a [routerLink]="['/question-answer']" routerLinkActive="router-link-active" >Question/Answer portal</a>
     <div >
       <form [formGroup]="queryForm" (submit)="onSubmit(queryForm.value)">
         <div class="text-center">

@@ -6,6 +6,7 @@ import { QuestionAnswerPortalComponent } from './question-answer-portal/question
 const routes: Routes = [
   {path : 'submit-question', component: SubmitQuestionComponent},
   {path : 'question-answer', component: QuestionAnswerPortalComponent},
+  {path : '**', component: SubmitQuestionComponent},
 
 ];
 

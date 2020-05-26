@@ -1,9 +1,6 @@
 <div class="wrapper container-fluid">
   <p>Admin User</p>
-  <p class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active" >Submit question</p>
-
-  
-
+  <a class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active" >Submit question</a>
   <div *ngFor="let item of tempQuestions; let i = index">
     <div class="text-center">
       <h1 class="">Question No {{i+1}}:</h1>
