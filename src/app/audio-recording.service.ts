@@ -1,9 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import * as RecordRTC from 'recordrtc';
 import * as moment from 'moment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject ,  of} from 'rxjs';
 import { isNullOrUndefined } from 'util';
-
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
+import {  finalize } from 'rxjs/operators';
 interface RecordedAudioOutput {
   blob: Blob;
   title: string;
@@ -21,6 +22,16 @@ export class AudioRecordingService {
   private _recordingTime = new Subject<string>();
   private _recordingFailed = new Subject<string>();
 
+  currentFileUpload = false;
+  progress: { percentage: number } = { percentage: 0 };
+  downloadURL: Observable<string>;
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
+  uploadProgress: Observable<number> = of(0);
+  uploadState: Observable<string>;
+  url: string;
+
+  constructor(private afStorage: AngularFireStorage) { }
 
   getRecordedBlob(): Observable<RecordedAudioOutput> {
     return this._recorded.asObservable();
@@ -113,6 +124,28 @@ export class AudioRecordingService {
         this.stream = null;
       }
     }
+  }
+
+
+
+  public upload(basePath, fileName, file ) {
+    this.currentFileUpload = true;
+    this.task = this.afStorage.upload(basePath + '/' +  fileName, file);
+    const ref = this.afStorage.ref(basePath + '/' + fileName);
+    this.uploadProgress = this.task.percentageChanges();
+    this.task.percentageChanges().subscribe(
+      (progress: number) => {
+        this.progress.percentage = progress;
+      }
+    );
+    console.log('Image uploaded!');
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.downloadURL = ref.getDownloadURL();
+        this.downloadURL.subscribe(url => {this.url = url;  });
+      })
+    )
+      .subscribe();
   }
 
 }

@@ -53,7 +53,7 @@ export class QuestionAnswerPortalComponent implements OnInit {
     });
   }
 
-  get questionsForm(){
+  get questionsForm() {
     return this.responseForm.get('questions');
   }
 
@@ -69,6 +69,9 @@ export class QuestionAnswerPortalComponent implements OnInit {
         email: value.email,
         question: value.question
       });
+      if (value.answer) {
+        this.questionsForm['controls'][i].get('answer').disable();
+      }
   }
 
   initForm() {
@@ -96,6 +99,11 @@ openSm(content) {
 submitAnswerByText(data) {
   console.log(data);
   this.crudService.update('questions', {answer: data.answer}, data.id);
+  this.getQuestion();
+}
+
+editAnswer(i) {
+  this.questionsForm['controls'][i].get('answer').enable();
 }
 
 /* Recroding sessio */

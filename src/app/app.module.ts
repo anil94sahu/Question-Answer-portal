@@ -1,3 +1,4 @@
+import { AngularFireStorage } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from './../environments/environment.prod';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,12 +12,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SubmitQuestionComponent } from './submit-question/submit-question.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AudioSubmitComponent } from './audio-submit/audio-submit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionAnswerPortalComponent,
-    SubmitQuestionComponent
+    SubmitQuestionComponent,
+    AudioSubmitComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [AudioRecordingService, AngularFirestore],
+  providers: [AudioRecordingService, AngularFirestore, AngularFireStorage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
