@@ -13,13 +13,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { SubmitQuestionComponent } from './submit-question/submit-question.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AudioSubmitComponent } from './audio-submit/audio-submit.component';
+import { SubQuestionComponent } from './question-answer-portal/sub-question/sub-question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionAnswerPortalComponent,
     SubmitQuestionComponent,
-    AudioSubmitComponent
+    AudioSubmitComponent,
+    SubQuestionComponent
   ],
   imports: [
     BrowserModule,

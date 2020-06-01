@@ -127,19 +127,27 @@ export class AudioRecordingService {
   }
 
 
+  selectedFiles: FileList;
+
+  selectFile(event) {
+    const file = event.target.files.item(0);
+    if (file.type.match('*.*')) {
+      this.selectedFiles = event.target.files;
+    } else {
+    }
+  }
 
   public upload(basePath, fileName, file ) {
-    this.currentFileUpload = true;
-    this.task = this.afStorage.upload(basePath + '/' +  fileName, file);
+    const task = this.afStorage.upload(basePath + '/' +  fileName, file);
     const ref = this.afStorage.ref(basePath + '/' + fileName);
-    this.uploadProgress = this.task.percentageChanges();
-    this.task.percentageChanges().subscribe(
+    this.uploadProgress = task.percentageChanges();
+    task.percentageChanges().subscribe(
       (progress: number) => {
         this.progress.percentage = progress;
       }
     );
-    console.log('Image uploaded!');
-    this.task.snapshotChanges().pipe(
+    console.log('Audio uploaded!');
+    task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL = ref.getDownloadURL();
         this.downloadURL.subscribe(url => {this.url = url;  });

@@ -13,7 +13,7 @@ constructor(private firestore: AngularFirestore) { }
         return this.firestore.collection(tableName).snapshotChanges();
     }
 
-    public getByParam(tableName: string, param: string, Id: string) {
+    public getByParam(tableName: string, Id: string) {
         return this.firestore.collection(`${tableName}/`).doc(Id).get();
     }
 

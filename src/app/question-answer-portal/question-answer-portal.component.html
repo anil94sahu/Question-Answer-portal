@@ -1,71 +1,26 @@
-<div class="wrapper container-fluid h-100">
-  <p>Admin User</p>
-  <a class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active" >Submit question</a>
-  <form [formGroup]="responseForm" (submit)="submitAnswerByText(responseForm.value)">
-    <div formArrayName="questions">
-      <div *ngFor="let item of tempQuestions; let i = index">
-        <div formGroupName="{{i}}" class="text-center">
-          <h1 class="">Question No {{i+1}}:</h1>
-          <p class="">{{item.question}}</p>
-          <textarea formControlName="answer"   class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
-          <div class="row">
-            <div class="col-sm-6">
-              <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
-              <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
-              <button type="button" (click)="submitAnswerByText(responseForm.value.questions[i])" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
-              <button type="button" (click)="editAnswer(i)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Edit -> </button>
-            </div>
-            <div class="col-sm-6">
-              <div class="container">
-                <p>
-                  <a (click)="openSm(content)">
-                    Record Answer
-                  </a>
-                  <!-- <i class="glyphicon glyphicon-record"></i> -->
-                </p>
-                <p>
-                  <!-- <i class="fas fa-coffee"></i> -->
-                  <a href="">
-                    Attach a File
-                  </a>  
-                </p>
-              </div>
-            </div>
-      
-          </div>
-        </div>
-        <div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
-
-
-<!-- Modal popup -->
-<!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openSm(content)">Small modal</button> -->
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Record Dialog Box</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>Record Your Answer Here</p>
-    <div *ngFor="let item of questions;let i = index">
-      <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item,i)">Start Recording</button>
-      <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item, i)">Stop Recording</button>
-      <div *ngIf="item.isRecording && !item.blobUrl"> {{item.recordedTime}} </div>
-      <div>
-        <audio *ngIf="!item.isRecording && item.blobUrl"  controls>
-          <source [src]="item.blobUrl" type="audio/webm">
-        </audio>
-      </div>
-  </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
+<table class="table table-hover  border border-dark">
+    <thead>
+        <tr class="table table-success">
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answer</th>
+            <th scope="col">Recording</th>
+            <th scope="col">Attach File</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table table-warning" *ngFor="let item of questionAnswerGrid;let index = index">
+            <th scope="row">{{index+1}}</th>
+            <td>{{item.question}}</td>
+            <td>{{item.answer}}</td>
+            <td>
+                <audio *ngIf="item.recordAnswer" controls>
+                    <source [src]="item.recordAnswer" type="audio/webm">
+                </audio>
+            </td>
+            <td></td>
+            <td><button (click)="openQuestion(item.id)">View</button></td>
+        </tr>
+    </tbody>
+</table>

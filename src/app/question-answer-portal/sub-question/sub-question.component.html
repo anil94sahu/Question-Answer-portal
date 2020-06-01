@@ -1,0 +1,105 @@
+<div class="wrapper container-fluid h-100" *ngIf="item">
+    <p>Admin User</p>
+    <a class="text-right" [routerLink]="['/submit-question']" routerLinkActive="router-link-active">Submit question</a>
+    <form [formGroup]="responseForm" (submit)="submitAnswerByText(responseForm.value)">
+        <div class="text-center">
+            <h4 class="">Question</h4>
+            <br>
+            <h2 class="">{{item.question}}</h2>
+            <textarea formControlName="answer" class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
+                    <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
+                    <button type="button" (click)="submitAnswerByText(responseForm.value)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
+                    <button type="button" (click)="editAnswer(item)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Edit -> </button>
+                </div>
+                <div class="col-sm-6">
+                    <div class="container">
+                        <p>
+                            <a (click)="openSm(content,item)">
+                                 Record Answer
+                            </a>
+                            <!-- <i class="glyphicon glyphicon-record"></i> -->
+                        </p>
+                        <p>
+                            <!-- <i class="fas fa-coffee"></i> -->
+                            <a href="">
+                                Attach a File
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Modal popup -->
+<!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openSm(content)">Small modal</button> -->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Record Dialog Box</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="!item.recordAnswer">
+            <p>Record Your Answer Here</p>
+            <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item)">Start Recording</button>
+            <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item)">Stop Recording</button>
+            <div *ngIf="item.isRecording && !item.blobUrl"> {{item.recordedTime}} </div>
+            <div>
+                <audio *ngIf="!item.isRecording && item.blobUrl" controls>
+                  <source [src]="item.blobUrl" type="audio/webm">
+                </audio>
+                <div class="form-group col-md-4">
+                    <button class="btn btn-success" (click)="upload(item)">save</button>
+                </div>
+            </div>
+        </div>
+        <div class="border" *ngIf="item.recordAnswer">
+            <p>Your Answer Here</p>
+            <audio controls>
+                <source [src]="item.recordAnswer" type="audio/webm">
+            </audio>
+            <!-- <div class="form-row" *ngIf="currentFileUpload">
+                <div class="progress wd-100">
+                    <div class="progress-bar  progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{uploadProgress | async | number:'1.0-0'}}%</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row py-5">
+                    <div class="form-group col-md-5 pl-5">
+                        <label class=""> 
+                    <input type="file"
+                    (change)="selectFile($event)">
+                </label>
+                        <div class="profile-img">
+                            {{url | json}}
+                            <audio controls>
+                            <source src="{{item.recordAnswer}}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                        </audio>
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+            </div> -->
+            <div class="form-group col-md-4">
+                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">save</button>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

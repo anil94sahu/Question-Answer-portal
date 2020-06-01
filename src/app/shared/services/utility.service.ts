@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class UtilityService {
     constructor() { }
 
-    
+
     getKeyByValue(object, value) {
         return Object.keys(object).find(key => object[key] === value);
       }
@@ -44,5 +44,10 @@ export class UtilityService {
         payload.id = e.payload.doc.id;
         return payload;
       });
+    }
+
+    responsiveDoc(res) {
+      const id = res.id;
+      return {...res.data(), id: id};
     }
 }
