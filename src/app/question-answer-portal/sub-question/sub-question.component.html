@@ -17,14 +17,15 @@
                 <div class="col-sm-6">
                     <div class="container">
                         <p>
-                            <a (click)="openSm(content,item)">
+                            <a href="javascript:void(0);" (click)="openSm(content,item)">
                                  Record Answer
                             </a>
                             <!-- <i class="glyphicon glyphicon-record"></i> -->
                         </p>
                         <p>
                             <!-- <i class="fas fa-coffee"></i> -->
-                            <a href="">
+
+                            <a (click)="openAttachment(saveFile)">
                                 Attach a File
                             </a>
                         </p>
@@ -67,31 +68,6 @@
             <audio controls>
                 <source [src]="item.recordAnswer" type="audio/webm">
             </audio>
-            <!-- <div class="form-row" *ngIf="currentFileUpload">
-                <div class="progress wd-100">
-                    <div class="progress-bar  progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-                        {{uploadProgress | async | number:'1.0-0'}}%</div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row py-5">
-                    <div class="form-group col-md-5 pl-5">
-                        <label class=""> 
-                    <input type="file"
-                    (change)="selectFile($event)">
-                </label>
-                        <div class="profile-img">
-                            {{url | json}}
-                            <audio controls>
-                            <source src="{{item.recordAnswer}}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                        </audio>
-                        </div>
-                    </div>
-                    <br>
-
-                </div>
-            </div> -->
             <div class="form-group col-md-4">
                 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">save</button>
             </div>
@@ -103,3 +79,6 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     </div>
 </ng-template>
+
+
+<app-save-file #saveFile [basePath]="'attachment'" [item]="item" (response)="saveAttachment($event)"></app-save-file>

@@ -1,8 +1,9 @@
+import { SaveFileComponent } from 'src/app/shared/components/save-file/save-file.component';
 import { UtilityService } from './../../shared/services/utility.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from './../../crud.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AudioRecordingService } from 'src/app/audio-recording.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
@@ -40,8 +41,10 @@ export class SubQuestionComponent implements OnInit {
   private basePath = '/recording';
   file: any;
   id: string;
+  @ViewChild('saveFile', {static: false}) SaveFileComponentChild: SaveFileComponent;
 
-  constructor(private modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
+
+  constructor(public modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService, private afStorage: AngularFireStorage,
     private router: Router, private route: ActivatedRoute) {
     this.audioRecordingService.recordingFailed().subscribe(() => {
@@ -105,7 +108,8 @@ export class SubQuestionComponent implements OnInit {
       email: new FormControl('', Validators.required),
       question: new FormControl(''),
       answer: new FormControl(''),
-      recordAnswer: new FormControl('')
+      recordAnswer: new FormControl(''),
+      attachment: new FormControl('')
     };
     return new FormGroup(initForm);
   }
@@ -191,8 +195,21 @@ upload(item) {
     .subscribe();
 }
 
+/* upload attachment file */
+saveAttachment(fileUrl) {
+  if (fileUrl) {
+    this.responseForm.controls.attachment.setValue(fileUrl);
+  } else {
+    alert('This is not a valid file');
+  }
+}
+
+openAttachment() {
+  this.SaveFileComponentChild.openModal(this.item);
+}
 
 
+// tslint:disable-next-line: use-life-cycle-interface
 ngOnDestroy(): void {
   this.audioRecordingService.abortRecording();
 }

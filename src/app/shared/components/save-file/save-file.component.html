@@ -1,0 +1,37 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Save Attachments Dialog Box</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="border">
+            <div class="form-row" *ngIf="currentFileUpload">
+                <div class="progress w-100 m-3">
+                    <div class="progress-bar  progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{uploadProgress | async | number:'1.0-0'}}%</div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row py-5">
+                    <div class="form-group col-md-5 pl-5">
+                        <label class=""> 
+                            <input type="file"
+                            (change)="selectFile($event)">
+                        </label>
+                    </div>
+                </div>
+                *please click on upload button to save attachment. And wait until file uploaded.
+            </div>
+            <div class="form-group col-md-4">
+                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">save</button>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

@@ -14,6 +14,7 @@ import { SubmitQuestionComponent } from './submit-question/submit-question.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { AudioSubmitComponent } from './audio-submit/audio-submit.component';
 import { SubQuestionComponent } from './question-answer-portal/sub-question/sub-question.component';
+import { SaveFileComponent } from './shared/components/save-file/save-file.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +22,15 @@ import { SubQuestionComponent } from './question-answer-portal/sub-question/sub-
     QuestionAnswerPortalComponent,
     SubmitQuestionComponent,
     AudioSubmitComponent,
-    SubQuestionComponent
+    SubQuestionComponent,
+    SaveFileComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [AudioRecordingService, AngularFirestore, AngularFireStorage],
   bootstrap: [AppComponent]
