@@ -22,6 +22,7 @@ export class SubmitQuestionComponent implements OnInit {
       id: new FormControl('', /*  Validators.compose([Validators.required]) */),
       name: new FormControl(''),
       email: new FormControl('', Validators.required),
+      location: new FormControl(''),
       question: new FormControl(''),
     };
     return new FormGroup(initForm);
