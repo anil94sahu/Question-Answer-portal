@@ -1,9 +1,7 @@
 <div class="wrapper container-fluid">
-    <p>Guest User</p>
-    <a [routerLink]="['/question-answer']" routerLinkActive="router-link-active">Question/Answer portal</a>
-    <div>
+    <div class="py-5">
         <form [formGroup]="queryForm" (submit)="onSubmit(queryForm.value)">
-            <div class="text-center">
+            <div class="text-center ">
                 <h1 class="">Ask A Question</h1>
                 <div class="row ml-25">
                     <div class="col-sm-2">

@@ -4,6 +4,8 @@
             <thead>
                 <tr class="table table-success">
                     <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Question</th>
                     <th scope="col">Answer</th>
                     <th scope="col">Recording</th>
@@ -14,6 +16,8 @@
             <tbody>
                 <tr class="table table-warning" *ngFor="let item of questionAnswerGrid;let index = index">
                     <th scope="row">{{index+1}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.location}}</td>
                     <td>{{item.question}}</td>
                     <td>{{item.answer}}</td>
                     <td>

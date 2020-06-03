@@ -42,7 +42,8 @@ export class SubQuestionComponent implements OnInit {
   file: any;
   id: string;
   @ViewChild('saveFile', {static: false}) SaveFileComponentChild: SaveFileComponent;
-
+  loading = true;
+  buttonText = 'Send Mail...';
 
   constructor(public modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService, private afStorage: AngularFireStorage,
@@ -128,6 +129,7 @@ openSm(content, item) {
 submitAnswerByText(data) {
   console.log(data);
   this.crudService.update('questions', {answer: data.answer}, data.id);
+  this.sendMail();
   this.getQuestionById(data.id);
   // this.getQuestion();
 }
@@ -208,6 +210,35 @@ openAttachment() {
   this.SaveFileComponentChild.openModal(this.item);
 }
 
+/* Send mail  */
+  sendMail() {
+    this.loading = true;
+    this.buttonText = 'Submiting...';
+    const user = {
+      name: this.item.name,
+      email: this.item.email,
+      question: this.item.question,
+      answer: this.item.answer,
+      audioLink: this.item.recordAnswer,
+      attachment: this.item.attachment
+    };
+    this.utilityService.sendMail('http://localhost:3000/sendmail', user).subscribe(
+      data => {
+        const res: any = data;
+        console.log(
+          `👏 > 👏 > 👏 > 👏 Mail is sent to ${user.name} successfully ${res.messageId}`
+        );
+      },
+      err => {
+        console.log(err); 
+        this.loading = false;
+        this.buttonText = 'Submit';
+      }, () => {
+        this.loading = false;
+        this.buttonText = 'Submit';
+      }
+    );
+  }
 
 // tslint:disable-next-line: use-life-cycle-interface
 ngOnDestroy(): void {

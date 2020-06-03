@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class UtilityService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
 
     getKeyByValue(object, value) {
@@ -50,4 +51,10 @@ export class UtilityService {
       const id = res.id;
       return {...res.data(), id: id};
     }
+
+  sendMail(url, data){
+    return  this.http.post(url, data);
+    }
 }
+
+

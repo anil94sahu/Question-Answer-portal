@@ -1,0 +1,77 @@
+.navbar-dropdown.bg-color.transparent {
+    background: none;
+}
+
+@media (min-width: 992px) {
+    .header .navbar {
+        display: block;
+        padding: 0;
+    }
+}
+
+.header .navbar {
+    padding: .5rem 0;
+    background: #232323;
+    transition: none;
+    min-height: 77px;
+}
+
+.navbar-dropdown {
+    left: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.45s ease;
+    z-index: 1030;
+    background: #282828;
+}
+
+.header .nav-dropdown .link {
+    font-weight: 400;
+}
+
+.header .nav-item a {
+    padding: 0.4rem 0 !important;
+}
+
+.nav-dropdown .link {
+    margin: .667em 1.667em;
+    font-weight: 500;
+    padding: 0;
+    transition: color .2s ease-in-out;
+}
+
+.header a {
+    font-style: normal;
+}
+
+.display-4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+}
+
+.mbr-white {
+    color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.display-1,
+.display-2,
+.display-3,
+.display-4 {
+    line-height: 1;
+    word-break: break-word;
+    word-wrap: break-word;
+}
