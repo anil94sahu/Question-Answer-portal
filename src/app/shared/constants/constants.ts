@@ -1,1 +1,1 @@
-export const url = 'http://localhost:3000/sendmail'
+export const CONFIGAPI = 'https://question-answer-portal-sendmai.herokuapp.com/'

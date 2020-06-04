@@ -10,6 +10,7 @@ import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask 
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { CONFIGAPI } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-sub-question',
@@ -222,7 +223,7 @@ openAttachment() {
       audioLink: this.item.recordAnswer,
       attachment: this.item.attachment
     };
-    this.utilityService.sendMail('http://localhost:3000/sendmail', user).subscribe(
+    this.utilityService.sendMail(`${CONFIGAPI}sendmail`, user).subscribe(
       data => {
         const res: any = data;
         console.log(
