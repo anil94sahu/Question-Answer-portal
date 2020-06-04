@@ -1,3 +1,4 @@
+import { LoaderComponent } from './shared/components/loader/loader.component';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from './../environments/environment.prod';
@@ -17,6 +18,9 @@ import { SubQuestionComponent } from './question-answer-portal/sub-question/sub-
 import { SaveFileComponent } from './shared/components/save-file/save-file.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import {HttpClientModule} from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import {HttpClientModule} from '@angular/common/http';
     AudioSubmitComponent,
     SubQuestionComponent,
     SaveFileComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,14 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+      extendedTimeOut: 1000
+    })
   ],
   providers: [AudioRecordingService, AngularFirestore, AngularFireStorage],
   bootstrap: [AppComponent]

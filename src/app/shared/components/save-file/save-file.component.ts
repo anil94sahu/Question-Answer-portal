@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CrudService } from './../../../crud.service';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
@@ -30,8 +31,9 @@ export class SaveFileComponent implements OnInit {
   loginModalPopup: NgbModalRef;
 
 
-  
-  constructor(private modalService: NgbModal, private crudService: CrudService, private afStorage: AngularFireStorage) { }
+
+  constructor(private modalService: NgbModal, private crudService: CrudService, private afStorage: AngularFireStorage,
+    private loaderService: LoaderService ) { }
 
   ngOnInit() {
   }
@@ -62,8 +64,9 @@ upload(item) {
     finalize(() => {
       const downloadURL = ref.getDownloadURL();
       downloadURL.subscribe(url => {this.url = url; console.log(url);
-        
+        this.loaderService.show();
         this.crudService.update('questions', {attachment: url}, item.id);
+        this.loaderService.hide();
       });
     })
   )

@@ -24,7 +24,7 @@
                             <p>
                                 <!-- <i class="fas fa-coffee"></i> -->
 
-                                <a (click)="openAttachment(saveFile)">
+                                <a href="javascript:void(0);" (click)="openAttachment(saveFile)">
                                     Attach a File
                                 </a>
                             </p>
@@ -54,6 +54,12 @@
             <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item)">Start Recording</button>
             <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item)">Stop Recording</button>
             <div *ngIf="item.isRecording && !item.blobUrl"> {{item.recordedTime}} </div>
+            <div class="form-row" *ngIf="currentFileUpload">
+                <div class="progress w-100 m-3">
+                    <div class="progress-bar  progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{uploadProgress | async | number:'1.0-0'}}%</div>
+                </div>
+            </div>
             <div>
                 <audio *ngIf="!item.isRecording && item.blobUrl" controls>
                   <source [src]="item.blobUrl" type="audio/webm">
@@ -68,6 +74,7 @@
             <audio controls>
                 <source [src]="item.recordAnswer" type="audio/webm">
             </audio>
+
             <div class="form-group col-md-4">
                 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">save</button>
             </div>

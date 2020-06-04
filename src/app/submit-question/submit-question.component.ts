@@ -1,8 +1,10 @@
+import { LoaderService } from './../shared/services/loader.service';
 import { CONFIGAPI } from 'src/app/shared/constants/constants';
 import { CrudService } from './../crud.service';
 import { UtilityService } from './../shared/services/utility.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-submit-question',
@@ -12,7 +14,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SubmitQuestionComponent implements OnInit {
 
   queryForm: FormGroup;
-  constructor(private crudService: CrudService, private utilityService: UtilityService) { }
+  constructor(private crudService: CrudService, private utilityService: UtilityService, 
+    private loaderService: LoaderService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.queryForm = this.initForm();
@@ -30,20 +33,24 @@ export class SubmitQuestionComponent implements OnInit {
   }
 
   onSubmit(data) {
+    this.toastr.success('Question is submmited successfully', 'success');
     if (this.queryForm.valid) {
+      this.loaderService.show();
       this.crudService.create('questions', data).then(
         e => {console.log(e),
+              this.loaderService.hide();
               // this.router.navigateByUrl('');
-              alert('Question is submmited successfully');
               const item = { email: data.email, question: data.question, name: data.name};
+              this.onReset();
               this.sendMail(item);
         }
       ).catch(
         () => {
+          this.loaderService.hide();
         }
       );
     } else {
-      alert('please fill the mandatory fields')
+        this.toastr.info('please fill the mandatory fields', 'info');
     }
   }
 
@@ -97,6 +104,10 @@ export class SubmitQuestionComponent implements OnInit {
         // this.buttonText = 'Submit';
       }
     );
+  }
+
+  onReset(){
+    this.queryForm = this.initForm();
   }
 
 }

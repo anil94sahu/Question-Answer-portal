@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from './../../shared/services/loader.service';
 import { SaveFileComponent } from 'src/app/shared/components/save-file/save-file.component';
 import { UtilityService } from './../../shared/services/utility.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -43,11 +45,14 @@ export class SubQuestionComponent implements OnInit {
   file: any;
   id: string;
   @ViewChild('saveFile', {static: false}) SaveFileComponentChild: SaveFileComponent;
+  modalPopup: any;
   loading = true;
   buttonText = 'Send Mail...';
 
   constructor(public modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService, private afStorage: AngularFireStorage,
+    private loaderService: LoaderService,
+    private toastr: ToastrService,
     private router: Router, private route: ActivatedRoute) {
     this.audioRecordingService.recordingFailed().subscribe(() => {
       this.item.isRecording = false;
@@ -81,13 +86,16 @@ export class SubQuestionComponent implements OnInit {
 
 
   getQuestionById(id) {
+    this.loaderService.show();
     this.crudService.getByParam('questions', id)
     .subscribe((data) => {
+      this.loaderService.hide();
       this.item = this.utilityService.responsiveDoc(data);
       if (this.item) {
         this.setValue(this.item);
       }
-    });
+    },
+    err => {this.loaderService.hide();});
   }
 
 
@@ -118,7 +126,7 @@ export class SubQuestionComponent implements OnInit {
 
 /* Modal popup */
 openSm(content, item) {
-  this.modalService.open(content, { size: 'sm' });
+  this.modalPopup =  this.modalService.open(content, { size: 'sm' });
   this.isRecording = false;
   this.recordedTime = undefined;
   this.blobUrl = undefined;
@@ -129,7 +137,10 @@ openSm(content, item) {
 
 submitAnswerByText(data) {
   console.log(data);
+  this.loaderService.show();
   this.crudService.update('questions', {answer: data.answer}, data.id);
+  this.loaderService.hide();
+  this.toastr.success('answer is saved successfully', 'success');
   this.sendMail(data);
   this.getQuestionById(data.id);
   // this.getQuestion();
@@ -186,12 +197,15 @@ upload(item) {
       this.progress.percentage = progress;
     }
   );
-  console.log('Image uploaded!');
   task.snapshotChanges().pipe(
     finalize(() => {
       const downloadURL = ref.getDownloadURL();
       downloadURL.subscribe(url => {this.url = url; console.log(url);
+        this.loaderService.show();
         this.crudService.update('questions', {recordAnswer: url}, item.id);
+        this.loaderService.hide();
+        this.toastr.success('audio recording is saved successfully', 'success');
+        this.modalPopup.close();
       });
     })
   )
@@ -203,7 +217,7 @@ saveAttachment(fileUrl) {
   if (fileUrl) {
     this.responseForm.controls.attachment.setValue(fileUrl);
   } else {
-    alert('This is not a valid file');
+    this.toastr.info('This is not a valid file', 'info');
   }
 }
 
@@ -258,19 +272,23 @@ openAttachment() {
       </p>
       `
     };
+    this.loaderService.show();
     this.utilityService.sendMail(`${CONFIGAPI}sendmail`, user).subscribe(
       data => {
+        this.loaderService.hide();
         const res: any = data;
-        console.log(
-          `👏 > 👏 > 👏 > 👏 Mail is sent to ${user.name} successfully ${res.messageId}`
-        );
+        this.toastr.success(`Email is sent to ${user.name} successfully`, 'success');
       },
       err => {
-        console.log(err); 
+        console.log(err);
+        this.loaderService.hide();
         this.loading = false;
         this.buttonText = 'Submit';
+        this.toastr.error(`Facing error in sending mail to ${user.name}`, 'success');
+
       }, () => {
         this.loading = false;
+        this.loaderService.hide();
         this.buttonText = 'Submit';
       }
     );

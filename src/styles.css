@@ -10,3 +10,7 @@
 .ml-25 {
     margin-left: 25% !important;
 }
+
+.toast-top-center {
+    top: 100px !important;
+}

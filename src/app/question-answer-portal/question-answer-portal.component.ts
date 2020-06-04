@@ -1,3 +1,4 @@
+import { LoaderService } from './../shared/services/loader.service';
 import { Observable, of } from 'rxjs';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { UtilityService } from './../shared/services/utility.service';
@@ -20,7 +21,7 @@ export class QuestionAnswerPortalComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService, private afStorage: AngularFireStorage,
-    private router: Router, private route: ActivatedRoute) {
+    private router: Router, private route: ActivatedRoute, private loaderService: LoaderService) {
 
   }
 
@@ -31,14 +32,17 @@ export class QuestionAnswerPortalComponent implements OnInit {
   }
 
   getQuestion() {
+    this.loaderService.show();
     this.crudService.getAll('questions')
       .subscribe((data) => {
+        this.loaderService.hide();
         this.questionAnswerGrid = this.utilityService.responsive(data);
-      });
+      },
+      (err) => {this.loaderService.hide(); });
   }
 
-  openQuestion(id){
-    this.router.navigateByUrl(`question-answer/${id}`)
+  openQuestion(id) {
+    this.router.navigateByUrl(`question-answer/${id}`);
   }
 
 }
