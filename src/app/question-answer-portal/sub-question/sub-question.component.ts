@@ -130,7 +130,7 @@ openSm(content, item) {
 submitAnswerByText(data) {
   console.log(data);
   this.crudService.update('questions', {answer: data.answer}, data.id);
-  this.sendMail();
+  this.sendMail(data);
   this.getQuestionById(data.id);
   // this.getQuestion();
 }
@@ -212,16 +212,51 @@ openAttachment() {
 }
 
 /* Send mail  */
-  sendMail() {
+  sendMail(data) {
     this.loading = true;
     this.buttonText = 'Submiting...';
     const user = {
-      name: this.item.name,
-      email: this.item.email,
-      question: this.item.question,
-      answer: this.item.answer,
-      audioLink: this.item.recordAnswer,
-      attachment: this.item.attachment
+      name: data.name,
+      email: data.email,
+      question: data.question,
+      answer: data.answer,
+      audioLink: data.recordAnswer,
+      attachment: data.attachment,
+      body: `
+      <p><strong>Hare Krishna ${data.name} pr</strong></p>
+        <br>
+        <p>
+            Thank you for asking question.
+        </p>
+        <p>
+            Below is the answer of your question
+        </p>
+        <br>
+        <p>
+            <b>Question :</b> ${data.question}
+        </p>
+        <p>
+            <b>Answer : </b> ${data.answer}
+        </p>
+        <p>
+            <b>Link for audio : </b> ${data.recordAnswer}
+        </p>
+        <p>
+            <b>Link for Attachment : </b> ${data.recordAnswer}
+        </p>
+
+        <br>
+        <p>
+            <b>
+                Your Servant
+            </b>
+        </p>
+        <p>
+            <strong>
+                Pune voice team
+            </strong>
+      </p>
+      `
     };
     this.utilityService.sendMail(`${CONFIGAPI}sendmail`, user).subscribe(
       data => {
