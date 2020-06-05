@@ -24,3 +24,13 @@
 a:href {
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .wrapper {
+        height: auto !important;
+    }
+    .ml-25 {
+        margin-left: 0px !important;
+        ;
+    }
+}
