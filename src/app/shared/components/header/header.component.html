@@ -14,24 +14,25 @@
                     </a>
                 </span>
             </div>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <div class="hamburger">
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-            </button>
+            </button> -->
         </div>
         <div class="row">
             <div class="form-inline mx-5">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/question-answer']" routerLinkActive="router-link-active">Summary</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/question-answer']" routerLinkActive="router-link-active"><i class="fa fa-th-list" aria-hidden="true"></i> Summary</button>
             </div>
             <div class="form-inline mx-5">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Guest User</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-user" aria-hidden="true"></i> Guest User</button>
             </div>
             <div class="form-inline mx-5">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/submit-question']" routerLinkActive="router-link-active">Submit Question</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/submit-question']" routerLinkActive="router-link-active">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i> Submit Question</button>
             </div>
         </div>
     </nav>

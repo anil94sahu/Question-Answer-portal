@@ -16,3 +16,7 @@
 .toast-top-center {
     top: 100px !important;
 }
+
+:disabled {
+    cursor: not-allowed;
+}

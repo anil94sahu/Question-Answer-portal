@@ -19,11 +19,11 @@
                         <label class=""> 
                             <input type="file"
                             (change)="selectFile($event)">
+                            
                         </label>
                     </div>
                 </div>
-                <p class="bg bg-warning">
-                    *please click on upload button to save attachment. And wait until file uploaded.
+                <p class="bg bg-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> *please click on upload button to save attachment. And wait until file uploaded.
                 </p>
             </div>
         </div>
@@ -31,7 +31,7 @@
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">Upload</button>
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">Upload <i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-dark text-white" (click)="modal.close('Close click')">Close</button>
     </div>
 </ng-template>

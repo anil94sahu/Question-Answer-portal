@@ -10,10 +10,10 @@
                     <div class="col-sm-6">
                         <div class="row justify-content-center">
                             <div class="col-auto w-75 ml-15">
-                                <button type="button" class="btn btn-success m-3" (click)="navigatingToLastQuestion(item)"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
-                                <button type="button" class="btn btn-success m-3" (click)="navigatingToNextQuestion(item)"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
-                                <button type="button" (click)="submitAnswerByText(responseForm.value)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
-                                <button type="button" (click)="editAnswer(item)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Edit -> </button>
+                                <button type="button" class="btn btn-success m-3" (click)="navigatingToLastQuestion(item)"> <i class="fa fa-arrow-left" aria-hidden="true"></i> PREVIOUS</button>
+                                <button type="button" class="btn btn-success m-3" (click)="navigatingToNextQuestion(item)">NEXT <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                                <button type="button" (click)="editAnswer(item)" class="btn btn-success m-3"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                                <button type="button" (click)="submitAnswerByText(responseForm.value)" class="btn btn-success m-3"> <i class="fa fa-floppy-o" aria-hidden="true"></i> Submit</button>
                             </div>
                         </div>
                     </div>
@@ -21,11 +21,11 @@
                         <div class="row justify-content-center">
                             <div class="col-auto w-75 ml-15">
                                 <a class="btn btn-info m-3" href="javascript:void(0);" (click)="openSm(content,item)">
-                                    Record Answer
-                               </a>
+                                    <i class="fa fa-file-audio-o" aria-hidden="true"></i> Record Answer
+                                </a>
                                 <a href="javascript:void(0);" class="btn btn-info m-3" (click)="openAttachment(saveFile)">
-                                Attach a File
-                            </a>
+                                    <i class="fa fa-file-archive-o" aria-hidden="true"></i> Attach a File
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -50,8 +50,8 @@
     <div class="modal-body">
         <div *ngIf="!item.recordAnswer">
             <p>Record Your Answer Here</p>
-            <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item)">Start Recording</button>
-            <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item)">Stop Recording</button>
+            <button class="start-button" *ngIf="!item.isRecording && !item.blobUrl" (click)="startRecording(item)">Start Recording <i class="fa fa-play" aria-hidden="true"></i></button>
+            <button class="stop-button" *ngIf="item.isRecording && !item.blobUrl" (click)="stopRecording(item)">Stop Recording <i class="fa fa-stop" aria-hidden="true"></i></button>
             <div *ngIf="item.isRecording && !item.blobUrl"> {{item.recordedTime}} </div>
             <div class="form-row" *ngIf="currentFileUpload">
                 <div class="progress w-100 m-3">
@@ -75,7 +75,7 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-info" (click)="upload(item)">Save</button>
+        <button type="button" class="btn btn-info" (click)="upload(item)">Save <i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
     </div>
 </ng-template>
 

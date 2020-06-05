@@ -34,14 +34,14 @@ export class SubmitQuestionComponent implements OnInit {
   }
 
   onSubmit(data) {
-    this.toastr.success('Question is submmited successfully', 'success');
     if (this.queryForm.valid) {
       this.loaderService.show();
       this.crudService.create('questions', data).then(
         e => {console.log(e),
-              this.loaderService.hide();
-              // this.router.navigateByUrl('');
-              const item = { email: data.email, question: data.question, name: data.name};
+          this.loaderService.hide();
+          // this.router.navigateByUrl('');
+          const item = { email: data.email, question: data.question, name: data.name};
+          this.toastr.success('Question is submmited successfully', 'success');
               this.onReset();
               this.sendMail(item);
         }
@@ -92,12 +92,9 @@ export class SubmitQuestionComponent implements OnInit {
     this.utilityService.sendMail(`${CONFIGAPI}sendmail`, user).subscribe(
       data => {
         const res: any = data;
-        console.log(
-          `👏 > 👏 > 👏 > 👏 Mail is sent to ${user.name} successfully ${res.messageId}`
-        );
       },
       err => {
-        console.log(err); 
+        console.log(err);
         // this.loading = false;
         // this.buttonText = 'Submit';
       }, () => {

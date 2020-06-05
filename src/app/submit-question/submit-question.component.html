@@ -6,13 +6,13 @@
                 <div class="row ml-25">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Name <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
                             <input type="text" class="form-control" formControlName="name" id="name" aria-describedby="name" placeholder="Enter name">
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="email">Email*</label>
+                            <label for="email">Email <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
                             <input type="text" class="form-control" formControlName="email" id="email" aria-describedby="name" placeholder="Enter email">
                         </div>
                     </div>
@@ -23,12 +23,11 @@
                         </div>
                     </div>
                 </div>
-                <h3>(Once question is answered notification can be sent on his email address with a link to audio file)</h3>
+                <h4>(Once question is answered notification can be sent on his email address with a link to audio file)</h4>
                 <textarea class="form-rounded p-5 w-75" formControlName="question" name="answer-portal" id="" placeholder="TYPE YOUR QUESTION HERE" cols="30" rows="10"></textarea>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <button type="submit" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Submit</button>
-                        <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT Question -> </button>
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success m-3"> <i class="fa fa-floppy-o" aria-hidden="true"></i> Submit</button>
                     </div>
                 </div>
             </div>

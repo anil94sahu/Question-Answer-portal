@@ -19,15 +19,15 @@
                         <th scope="row">{{index+1}}</th>
                         <td>{{item.name}}</td>
                         <td>{{item.location}}</td>
-                        <td>{{item.question}}</td>
-                        <td>{{item.answer}}</td>
+                        <td>{{item.question.length > 25 ? item.question.substring(0,50):item.question}}<br/><a href="javascript:void(0)" *ngIf="item.question.length > 25" (click)="openQuestion(item.id)">Read more...</a></td>
+                        <td>{{item.answer && item.answer.length > 25 ? item.answer.substring(0,50):item.answer}}<br/><a href="javascript:void(0)" *ngIf="item.answer && item.answer.length > 25" (click)="openQuestion(item.id)">Read more...</a></td>
                         <td>
                             <audio *ngIf="item.recordAnswer" controls>
                                 <source [src]="item.recordAnswer" type="audio/webm">
                             </audio>
                         </td>
                         <td><a *ngIf="item.attachment" href="{{item.attachment}}">Download</a></td>
-                        <td><button (click)="openQuestion(item.id)">View</button></td>
+                        <td><button class="btn btn-success" (click)="openQuestion(item.id)">View</button></td>
                     </tr>
                 </tbody>
             </table>
