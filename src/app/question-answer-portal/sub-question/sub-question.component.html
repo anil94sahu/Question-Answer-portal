@@ -8,26 +8,25 @@
                 <textarea formControlName="answer" class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
-                        <button type="button" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
-                        <button type="button" (click)="submitAnswerByText(responseForm.value)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
-                        <button type="button" (click)="editAnswer(item)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Edit -> </button>
+                        <div class="row justify-content-center">
+                            <div class="col-auto w-75 ml-15">
+                                <button type="button" class="btn btn-success m-3" (click)="navigatingToLastQuestion(item)"> <i class="fa fa-arrow-left" aria-hidden="true"></i><- PREVIOUS</button>
+                                <button type="button" class="btn btn-success m-3" (click)="navigatingToNextQuestion(item)"> <i class="fa fa-arrow-right" aria-hidden="true"></i> NEXT -> </button>
+                                <button type="button" (click)="submitAnswerByText(responseForm.value)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Submit -> </button>
+                                <button type="button" (click)="editAnswer(item)" class="btn btn-success m-3"> <i class="fa fa-arrow-right" aria-hidden="true"></i> Edit -> </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="container">
-                            <p>
-                                <a href="javascript:void(0);" (click)="openSm(content,item)">
-                                     Record Answer
-                                </a>
-                                <!-- <i class="glyphicon glyphicon-record"></i> -->
-                            </p>
-                            <p>
-                                <!-- <i class="fas fa-coffee"></i> -->
-
-                                <a href="javascript:void(0);" (click)="openAttachment(saveFile)">
-                                    Attach a File
-                                </a>
-                            </p>
+                        <div class="row justify-content-center">
+                            <div class="col-auto w-75 ml-15">
+                                <a class="btn btn-info m-3" href="javascript:void(0);" (click)="openSm(content,item)">
+                                    Record Answer
+                               </a>
+                                <a href="javascript:void(0);" class="btn btn-info m-3" (click)="openAttachment(saveFile)">
+                                Attach a File
+                            </a>
+                            </div>
                         </div>
                     </div>
 
@@ -64,9 +63,6 @@
                 <audio *ngIf="!item.isRecording && item.blobUrl" controls>
                   <source [src]="item.blobUrl" type="audio/webm">
                 </audio>
-                <div class="form-group col-md-4">
-                    <button class="btn btn-success" (click)="upload(item)">save</button>
-                </div>
             </div>
         </div>
         <div class="border" *ngIf="item.recordAnswer">
@@ -74,16 +70,12 @@
             <audio controls>
                 <source [src]="item.recordAnswer" type="audio/webm">
             </audio>
-
-            <div class="form-group col-md-4">
-                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload(item)">save</button>
-            </div>
         </div>
 
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-info" (click)="upload(item)">Save</button>
     </div>
 </ng-template>
 

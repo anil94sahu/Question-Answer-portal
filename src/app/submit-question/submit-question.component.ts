@@ -28,6 +28,7 @@ export class SubmitQuestionComponent implements OnInit {
       email: new FormControl('', Validators.required),
       location: new FormControl(''),
       question: new FormControl(''),
+      createdAt: new FormControl(new Date().getTime())
     };
     return new FormGroup(initForm);
   }

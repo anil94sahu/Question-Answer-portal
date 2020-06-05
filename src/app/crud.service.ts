@@ -10,7 +10,7 @@ export class CrudService {
 constructor(private firestore: AngularFirestore) { }
 
     public getAll(tableName: string) {
-        return this.firestore.collection(tableName).snapshotChanges();
+        return this.firestore.collection(tableName, ref => ref.orderBy('createdAt', 'desc')).snapshotChanges();
     }
 
     public getByParam(tableName: string, Id: string) {

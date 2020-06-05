@@ -31,6 +31,7 @@ export class SubQuestionComponent implements OnInit {
   tempQuestions = [];
   responseForm: FormGroup;
   item: any;
+  questionlist: any = [];
 
   selectedFiles: FileList;
   currentFileUpload = false;
@@ -54,6 +55,14 @@ export class SubQuestionComponent implements OnInit {
     private loaderService: LoaderService,
     private toastr: ToastrService,
     private router: Router, private route: ActivatedRoute) {
+      route.params.subscribe((val) => {
+        const id = val.id;
+        this.id = id;
+        // this.getQuestion();
+        this.getQuestionById(id);
+        this.responseForm = this.initForm();
+      });
+      this.questionlist = JSON.parse(localStorage.getItem('questionList'));
     this.audioRecordingService.recordingFailed().subscribe(() => {
       this.item.isRecording = false;
     });
@@ -77,11 +86,7 @@ export class SubQuestionComponent implements OnInit {
 
 
   ngOnInit() {
-    const id = this.route.snapshot.params.id;
-    this.id = id;
-    // this.getQuestion();
-    this.getQuestionById(id);
-    this.responseForm = this.initForm();
+
   }
 
 
@@ -95,7 +100,7 @@ export class SubQuestionComponent implements OnInit {
         this.setValue(this.item);
       }
     },
-    err => {this.loaderService.hide();});
+    err => {this.loaderService.hide(); });
   }
 
 
@@ -140,10 +145,24 @@ submitAnswerByText(data) {
   this.loaderService.show();
   this.crudService.update('questions', {answer: data.answer}, data.id);
   this.loaderService.hide();
+  this.getQuestionById(this.id);
   this.toastr.success('answer is saved successfully', 'success');
   this.sendMail(data);
-  this.getQuestionById(data.id);
   // this.getQuestion();
+}
+
+navigatingToNextQuestion(item) {
+  const index = this.questionlist.findIndex(id => id === item.id);
+  const nextQuestion = (index < this.questionlist.length - 1) ? this.questionlist[index + 1] : this.questionlist[index];
+  if (index < this.questionlist.length - 1)  { this.toastr.info('This is last question', 'info'); }
+  this.router.navigateByUrl(`question-answer/${nextQuestion}`);
+}
+
+navigatingToLastQuestion(item) {
+  const index = this.questionlist.findIndex(id => id === item.id);
+  const lastQuestion = (index > 0) ? this.questionlist[index - 1] : this.questionlist[index];
+  if (index === 0) { this.toastr.info('This is first question', 'info'); }
+  this.router.navigateByUrl(`question-answer/${lastQuestion}`);
 }
 
 editAnswer() {
@@ -206,6 +225,7 @@ upload(item) {
         this.loaderService.hide();
         this.toastr.success('audio recording is saved successfully', 'success');
         this.modalPopup.close();
+        this.getQuestionById(this.id);
       });
     })
   )

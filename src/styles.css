@@ -1,6 +1,8 @@
 .wrapper {
-    background: lightblue url("https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-chinese-style-ppt-background-blue-bamboo-forest-cool-and-quiet-style-image_56849.jpg") no-repeat fixed center;
+    background: lightblue url("https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMzk2fQ&w=1000&q=80") no-repeat fixed center;
+    background-size: cover;
     height: 800px;
+    background-color: #FD746C;
     width: 100%;
 }
 

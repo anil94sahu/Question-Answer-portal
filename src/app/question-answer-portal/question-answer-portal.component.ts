@@ -37,6 +37,8 @@ export class QuestionAnswerPortalComponent implements OnInit {
       .subscribe((data) => {
         this.loaderService.hide();
         this.questionAnswerGrid = this.utilityService.responsive(data);
+        const questionList = this.questionAnswerGrid.map(e => e.id);
+        localStorage.setItem('questionList', JSON.stringify(questionList));
       },
       (err) => {this.loaderService.hide(); });
   }
