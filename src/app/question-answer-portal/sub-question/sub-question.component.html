@@ -2,10 +2,10 @@
     <div class="py-5">
         <form [formGroup]="responseForm" (submit)="submitAnswerByText(responseForm.value)">
             <div class="text-center">
-                <h4 class="">Question</h4>
+                <h4 class="text-white">Question</h4>
                 <br>
-                <h2 class="">{{item.question}}</h2>
-                <textarea formControlName="answer" class="form-rounded p-5 w-75" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
+                <h2 class="text-white">{{item.question}}</h2>
+                <textarea formControlName="answer" class="form-rounded p-5 w-75 text-danger" name="answer-portal" id="" placeholder="Type your answer here" cols="30" rows="10"></textarea>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="row justify-content-center">

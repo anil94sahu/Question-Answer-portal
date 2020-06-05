@@ -2,28 +2,28 @@
     <div class="py-5">
         <form [formGroup]="queryForm" (submit)="onSubmit(queryForm.value)">
             <div class="text-center ">
-                <h1 class="">Ask A Question</h1>
+                <h1 class="text-white">Ask A Question</h1>
                 <div class="row ml-25">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label for="name">Name <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
+                            <label for="name" class="text-white">Name <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
                             <input type="text" class="form-control" formControlName="name" id="name" aria-describedby="name" placeholder="Enter name">
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="email">Email <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
+                            <label for="email" class="text-white">Email <sup><i class="fa fa-asterisk text-danger" aria-hidden="true"></i></sup></label>
                             <input type="text" class="form-control" formControlName="email" id="email" aria-describedby="name" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="location">Location</label>
+                            <label for="location" class="text-white">Location</label>
                             <input type="text" class="form-control" formControlName="location" id="location" aria-describedby="name" placeholder="Enter location">
                         </div>
                     </div>
                 </div>
-                <h4>(Once question is answered notification can be sent on his email address with a link to audio file)</h4>
+                <h4 class="text-white">(Once question is answered notification can be sent on his email address with a link to audio file)</h4>
                 <textarea class="form-rounded p-5 w-75" formControlName="question" name="answer-portal" id="" placeholder="TYPE YOUR QUESTION HERE" cols="30" rows="10"></textarea>
                 <div class="row">
                     <div class="col-sm-12">
