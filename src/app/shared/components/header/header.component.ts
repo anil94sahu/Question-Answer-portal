@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../../../auth.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoginComponent } from 'src/app/login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('loginModal', {static: false}) loginChild: LoginComponent;
+
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
+  }
+
+  openAttachment() {
+    this.loginChild.openModal();
   }
 
 }

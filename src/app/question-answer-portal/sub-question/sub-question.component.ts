@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from './../../shared/services/loader.service';
 import { SaveFileComponent } from 'src/app/shared/components/save-file/save-file.component';
@@ -32,6 +33,7 @@ export class SubQuestionComponent implements OnInit {
   responseForm: FormGroup;
   item: any;
   questionlist: any = [];
+  currentQuestionNumber: number;
 
   selectedFiles: FileList;
   currentFileUpload = false;
@@ -49,11 +51,13 @@ export class SubQuestionComponent implements OnInit {
   modalPopup: any;
   loading = true;
   buttonText = 'Send Mail...';
+  currentUser = '';
 
   constructor(public modalService: NgbModal, private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer,
     private crudService: CrudService, private utilityService: UtilityService, private afStorage: AngularFireStorage,
     private loaderService: LoaderService,
     private toastr: ToastrService,
+    public auth: AuthService,
     private router: Router, private route: ActivatedRoute) {
       route.params.subscribe((val) => {
         const id = val.id;
@@ -61,8 +65,10 @@ export class SubQuestionComponent implements OnInit {
         // this.getQuestion();
         this.getQuestionById(id);
         this.responseForm = this.initForm();
+        this.currentUser = localStorage.getItem('currentUser');
       });
       this.questionlist = JSON.parse(localStorage.getItem('questionList'));
+      this.currentQuestionNumber = this.questionlist.findIndex(id => id === this.id);
     this.audioRecordingService.recordingFailed().subscribe(() => {
       this.item.isRecording = false;
     });
@@ -111,9 +117,9 @@ export class SubQuestionComponent implements OnInit {
         email: value.email,
         question: value.question
       });
-      if (value.answer) {
-        this.responseForm.controls.answer.disable();
-      }
+      this.responseForm.controls.answer.disable();
+    /*   if (value.answer) {
+      } */
   }
 
   initForm() {
@@ -154,19 +160,28 @@ submitAnswerByText(data) {
 navigatingToNextQuestion(item) {
   const index = this.questionlist.findIndex(id => id === item.id);
   const nextQuestion = (index < this.questionlist.length - 1) ? this.questionlist[index + 1] : this.questionlist[index];
-  if (index < this.questionlist.length - 1)  { this.toastr.info('This is last question', 'info'); }
+  if (index === this.questionlist.length - 1)  { this.toastr.info('This is last question', 'info'); } else {
+    this.currentQuestionNumber = index + 1;
+  }
+
   this.router.navigateByUrl(`question-answer/${nextQuestion}`);
 }
 
 navigatingToLastQuestion(item) {
   const index = this.questionlist.findIndex(id => id === item.id);
   const lastQuestion = (index > 0) ? this.questionlist[index - 1] : this.questionlist[index];
-  if (index === 0) { this.toastr.info('This is first question', 'info'); }
+  if (index === 0) { this.toastr.info('This is first question', 'info'); } else {
+    this.currentQuestionNumber = index - 1;
+  }
   this.router.navigateByUrl(`question-answer/${lastQuestion}`);
 }
 
 editAnswer() {
-  this.responseForm.controls.answer.enable();
+  if (this.auth.currentUser) {
+    this.responseForm.controls.answer.enable();
+  } else {
+    this.toastr.info('please login first', 'info');
+  }
 }
 
 /* Recroding session */

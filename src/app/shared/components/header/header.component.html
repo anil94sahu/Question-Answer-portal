@@ -28,7 +28,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/question-answer']" routerLinkActive="router-link-active"><i class="fa fa-th-list" aria-hidden="true"></i> Summary</button>
             </div>
             <div class="form-inline mx-5">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-user" aria-hidden="true"></i> Guest User</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" (click)="!auth.currentUser ? openAttachment(): auth.logOut()" type="button"><i class="fa fa-user" aria-hidden="true"></i> {{!auth.currentUser ? 'Guest User': 'Logout'}}</button>
             </div>
             <div class="form-inline mx-5">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" [routerLink]="['/submit-question']" routerLinkActive="router-link-active">
@@ -37,3 +37,5 @@
         </div>
     </nav>
 </div>
+
+<app-login #loginModal></app-login>
