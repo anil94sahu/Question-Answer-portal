@@ -27,7 +27,7 @@
     "firebase": "^7.4.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "ngx-perfect-scrollbar": "^9.0.0",
     "ngx-toastr": "^10.2.0",
     "owl.carousel": "^2.3.4",
